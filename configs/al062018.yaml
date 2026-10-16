@@ -1,0 +1,43 @@
+project_root: .
+ri_threshold_kt: 30
+ri_period_hours: 24
+image_size: 128
+max_gap_hours: 3
+basins:
+  - AL
+train_seasons:
+  - 2018
+test_seasons:
+  - 2018
+subset:
+  seasons:
+    - 2018
+  basins:
+    - AL
+  storm_ids:
+    - "06"
+  instruments:
+    - GMI
+paths:
+  raw_tcprimed: data/raw/tcprimed
+  processed: data/processed
+  interim: data/interim
+  checkpoints: outputs/checkpoints
+  metrics: outputs/metrics
+  figures: outputs/figures
+train:
+  batch_size: 8
+  epochs: 5
+  lr: 0.001
+  weight_decay: 0.0001
+  num_workers: 0
+  seed: 42
+  models:
+    - tabular
+    - imagery
+    - fusion
+  val_fraction: 0.25
+download:
+  bucket: noaa-nesdis-tcprimed-pds
+  version: v01r01
+  stage: final
