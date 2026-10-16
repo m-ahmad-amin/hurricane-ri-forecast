@@ -1,0 +1,34 @@
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.venv/
+venv/
+env/
+.env
+.ipynb_checkpoints/
+.DS_Store
+Thumbs.db
+.claude/
+
+# datasets and artifacts (too large for git)
+data/raw/tcprimed/
+data/interim/
+data/processed/
+outputs/checkpoints/
+outputs/metrics/
+outputs/figures/
+*.nc
+*.npy
+*.npz
+*.parquet
+*.pt
+*.pth
+*.ckpt
+*.h5
+*.hdf5
+
+# local tooling
+.idea/
+.vscode/
+*.log
