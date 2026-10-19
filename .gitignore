@@ -11,22 +11,24 @@ env/
 Thumbs.db
 .claude/
 
-# datasets and artifacts (too large for git)
+# large data (not for git)
 data/raw/tcprimed/
 data/interim/
 data/processed/
-outputs/checkpoints/
-outputs/metrics/
-outputs/figures/
 *.nc
 *.npy
-*.npz
 *.parquet
+*.h5
+*.hdf5
+
+# model weights
+outputs/checkpoints/
 *.pt
 *.pth
 *.ckpt
-*.h5
-*.hdf5
+
+# keep small result artifacts trackable
+# outputs/metrics/*.json and outputs/figures/*.png may be committed
 
 # local tooling
 .idea/
