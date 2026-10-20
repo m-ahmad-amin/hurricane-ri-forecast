@@ -24,6 +24,8 @@ This is a research ablation study. The goal is **not** to beat operational NOAA 
   - `fusion`: gated tabular + imagery model
 - Season-held-out evaluation (train/val on 2017–2022, test on 2023–2024)
 - Probabilistic metrics: Brier score, Brier skill vs climatology, bootstrap intervals, reliability
+- Calibration audit: temperature scaling (primary) + isotonic (probability-quality check)
+- Basin breakdown (AL vs EP)
 - Case analysis: hit, miss, and false alarm
 - Resume-friendly prepare (storm checkpoints + optional `--shard 0/2` parallel workers)
 
@@ -54,19 +56,70 @@ data/raw/tcprimed/<year>/<basin>/<storm_id>/
 
 ## Main results (held-out 2023–2024)
 
+### Raw (uncalibrated)
+
 | Model | Brier ↓ | BSS vs climatology | POD | Success ratio |
 |---|---:|---:|---:|---:|
 | tabular | 0.074 | -0.603 | 0.702 | 0.270 |
 | imagery | **0.049** | -0.068 | 0.031 | 0.231 |
 | fusion | 0.056 | -0.211 | 0.356 | 0.303 |
 
+### Temperature-scaled (primary / operational)
+
+| Model | T | Brier ↓ | BSS | POD | Success ratio |
+|---|---:|---:|---:|---:|---:|
+| tabular | 1.27 | 0.073 | -0.583 | 0.702 | 0.270 |
+| imagery | 3.56 | **0.046** | -0.007 | 0.031 | 0.231 |
+| fusion | 1.94 | 0.053 | -0.146 | 0.356 | 0.303 |
+
+### Isotonic audit (probability quality; not used for detection claims)
+
+| Model | Brier ↓ | BSS | POD |
+|---|---:|---:|---:|
+| tabular | **0.037** | **+0.194** | 0.000 |
+| imagery | 0.045 | +0.035 | 0.000 |
+| fusion | 0.040 | +0.136 | 0.010 |
+
 Reading this honestly:
 
-- **Fusion beats tabular** on Brier skill (`fusion BSS - tabular BSS ≈ +0.39`).
-- **No model beats climatology** yet (all BSS < 0).
-- Tabular over-predicts RI (high POD, many false alarms).
-- Imagery under-predicts RI (almost never fires).
-- Accuracy is **not** the headline metric: RI is rare (~5%), so a trivial “never RI” predictor looks accurate and is still useless.
+- **Primary fusion beats tabular** on BSS (`ΔBSS ≈ +0.44`), but **no primary model beats climatology** yet.
+- Best primary Brier is imagery, mostly by almost never predicting RI (POD 0.03).
+- **Temperature scaling** softens overconfidence (especially imagery, `T≈3.6`) while **preserving POD**.
+- **Isotonic wins Brier** by shrinking probabilities below 0.5 → POD collapses. Better-calibrated risk, not better RI detection.
+- Failure modes stay opposite: tabular over-fires; imagery under-fires; fusion sits in between.
+- Accuracy is **not** the headline metric: RI is rare (~5%).
+
+### Basin breakdown (temperature / primary)
+
+| Model | Basin | n | RI rate | Brier | BSS | POD | Success |
+|---|---|---:|---:|---:|---:|---:|---:|
+| tabular | AL | 4999 | 3.1% | 0.064 | **-1.11** | 0.62 | 0.20 |
+| tabular | EP | 3114 | 7.6% | 0.088 | -0.24 | 0.76 | 0.33 |
+| imagery | AL | 4999 | 3.1% | 0.034 | -0.11 | 0.00 | 0.00 |
+| imagery | EP | 3114 | 7.6% | 0.067 | **+0.05** | 0.05 | 0.43 |
+| fusion | AL | 4999 | 3.1% | 0.045 | -0.50 | 0.33 | 0.20 |
+| fusion | EP | 3114 | 7.6% | 0.065 | **+0.08** | 0.37 | 0.42 |
+
+EP has ~2.5× the AL RI base rate. Fusion’s skill is **EP-driven**; on AL, tabular over-fires hardest and fusion only partially corrects it.
+
+### Where imagery helps / fails (temperature / primary)
+
+**By intensity** (test RI rate in parentheses):
+
+| Regime | Tabular BSS | Imagery BSS | Fusion BSS | Takeaway |
+|---|---:|---:|---:|---|
+| Cat1–2 64–95 kt (10.7% RI) | -0.66 | **+0.06** | ≈0.00 | **Imagery’s only clear win**: tabular over-fires; fusion mostly fixes it |
+| TS 50–63 kt (6.9%) | -0.55 | ≈0.00 | -0.22 | Imagery near climatology; fusion still better than tabular |
+| TS &lt;50 kt (3.0%) | -0.43 | -0.04 | -0.27 | Same pattern, lower base rate |
+| Cat3+ ≥96 kt (1.8%) | -2.54 | -0.98 | -0.54 | Rare RI; tabular still fires (POD 0.31, succ 0.07) |
+
+**By shear:**
+
+| Regime | n | RI rate | Note |
+|---|---:|---:|---|
+| low &lt;10 kt | 5552 | 6.8% | Almost all RI lives here; tabular over-fires (BSS -0.62); fusion improves but still &lt; clim |
+| mod 10–20 kt | 2130 | 0.6% | Very rare RI; fusion/imagery silent; tabular almost silent |
+| high ≥20 kt | 431 | **0%** | No RI in held-out test; models stay quiet (physically sensible) |
 
 ### Reliability (held-out test)
 
@@ -76,7 +129,7 @@ Reading this honestly:
   <img src="assets/reliability_fusion_default.png" alt="Fusion reliability" width="32%"/>
 </p>
 
-<p align="center"><em>Left to right: tabular, imagery, fusion. All three are overconfident relative to the diagonal; imagery stays closest to climatology by rarely predicting RI.</em></p>
+<p align="center"><em>Left to right: tabular, imagery, fusion (temperature-scaled primary). Overconfidence is reduced vs raw; imagery still hugs climatology by rarely predicting RI.</em></p>
 
 ### Case study (fusion)
 
@@ -84,17 +137,21 @@ Reading this honestly:
   <img src="assets/cases_fusion_default.png" alt="Fusion hit, miss, and false alarm cases" width="900"/>
 </p>
 
-<p align="center"><em>Fusion hit / miss / false alarm on held-out IRWIN scenes.</em></p>
+<p align="center"><em>Fusion hit / miss / false alarm on held-out IRWIN scenes (temperature primary).</em></p>
 
 ## Research gap / paper direction
 
 Many RI deep-learning reports emphasize that imagery or CNNs “improve” prediction. Fewer ask:
 
 1. Does imagery add skill **beyond SHIPS-like predictors**?
-2. Does that improvement survive a **climatology** reference and calibration audit?
-3. What failure modes appear (over-firing vs under-firing)?
+2. Does that improvement survive a **climatology** reference and **calibration** audit?
+3. What failure modes appear (over-firing vs under-firing), and do they differ by **basin**?
 
-This project targets that gap. A defensible paper angle:
+This project targets that gap. Current answer in one line:
+
+> Imagery helps most for Cat 1–2 storms (only regime with positive imagery BSS); tabular over-fires everywhere, worst on majors and AL; fusion inherits the Cat 1–2 correction and EP skill while keeping usable POD. No temperature-scaled model beats climatology overall, and isotonic “skill” can erase detection.
+
+A defensible paper angle:
 
 > When storm-centered satellite imagery helps (and fails) for probabilistic rapid-intensification prediction: a TC PRIMED ablation study.
 
@@ -221,9 +278,8 @@ CSV columns: `storm_id,time,ships_rii_prob`
 
 ## Next steps
 
-- Probability calibration
-- Basin / intensity breakdowns
-- Deeper failure-mode analysis for a paper draft
+- Short paper/methods write-up from the README narrative
+- Optional SHIPS-RII side-by-side if a matched CSV is available
 
 ## Attribution
 
