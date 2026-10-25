@@ -1,0 +1,221 @@
+{
+  "rungs": {
+    "env_only": {
+      "features": [
+        "sst_c",
+        "shear_low_0_800",
+        "shear_high_0_800",
+        "potential_intensity_kt",
+        "pw_mean",
+        "distance_to_land_km",
+        "storm_speed",
+        "intensity_kt"
+      ],
+      "gbm": {
+        "per_seed": [
+          {
+            "seed": 42,
+            "brier": 0.043930049724533085,
+            "brier_skill_vs_climatology": 0.04695195220866255,
+            "pod": 0.07124681933842239,
+            "roc_auc": 0.8901944982794764,
+            "mean_pred": 0.05971621284367077,
+            "bootstrap_bss": {
+              "bss_mean": 0.039048155503424116,
+              "bss_lo": -0.1513530087744248,
+              "bss_hi": 0.1471692451488939
+            }
+          },
+          {
+            "seed": 43,
+            "brier": 0.043905170670610186,
+            "brier_skill_vs_climatology": 0.04749169513908935,
+            "pod": 0.07124681933842239,
+            "roc_auc": 0.890844473888911,
+            "mean_pred": 0.059736361928157455,
+            "bootstrap_bss": {
+              "bss_mean": 0.03957836322921443,
+              "bss_lo": -0.1501727622268896,
+              "bss_hi": 0.14750485182134582
+            }
+          },
+          {
+            "seed": 44,
+            "brier": 0.043939040656197734,
+            "brier_skill_vs_climatology": 0.04675689688947782,
+            "pod": 0.07124681933842239,
+            "roc_auc": 0.8899941001199752,
+            "mean_pred": 0.05975273548915222,
+            "bootstrap_bss": {
+              "bss_mean": 0.038841342868743925,
+              "bss_lo": -0.15208144179387356,
+              "bss_hi": 0.14716562831026286
+            }
+          }
+        ],
+        "bss_mean": 0.04706684807907657,
+        "bss_std": 0.0003806348810693663
+      },
+      "mlp_unweighted": {
+        "per_seed": [
+          {
+            "seed": 42,
+            "brier": 0.039733799711660515,
+            "brier_skill_vs_climatology": 0.13798822254958087,
+            "pod": 0.02544529262086514,
+            "roc_auc": 0.877154445015755,
+            "mean_pred": 0.060794807970523834,
+            "best_epoch": 7,
+            "bootstrap_bss": {
+              "bss_mean": 0.13081296226475608,
+              "bss_lo": -0.005780476221038194,
+              "bss_hi": 0.22899662652404823
+            }
+          },
+          {
+            "seed": 43,
+            "brier": 0.038448424910590695,
+            "brier_skill_vs_climatology": 0.16587400807728647,
+            "pod": 0.02544529262086514,
+            "roc_auc": 0.8718616923097204,
+            "mean_pred": 0.05311661958694458,
+            "best_epoch": 3,
+            "bootstrap_bss": {
+              "bss_mean": 0.16162714505919953,
+              "bss_lo": 0.06948109240432554,
+              "bss_hi": 0.23800655141712188
+            }
+          },
+          {
+            "seed": 44,
+            "brier": 0.038726436078368155,
+            "brier_skill_vs_climatology": 0.15984264680235183,
+            "pod": 0.017811704834605598,
+            "roc_auc": 0.8826917625809174,
+            "mean_pred": 0.05657220631837845,
+            "best_epoch": 8,
+            "bootstrap_bss": {
+              "bss_mean": 0.15362183891681797,
+              "bss_lo": 0.04682090567954621,
+              "bss_hi": 0.2357721569746629
+            }
+          }
+        ],
+        "bss_mean": 0.15456829247640638,
+        "bss_std": 0.014672026744489435
+      }
+    },
+    "env_plus_ir_scalars": {
+      "features": [
+        "sst_c",
+        "shear_low_0_800",
+        "shear_high_0_800",
+        "potential_intensity_kt",
+        "pw_mean",
+        "distance_to_land_km",
+        "storm_speed",
+        "intensity_kt",
+        "ir_annulus_std_0",
+        "ir_annulus_std_1",
+        "ir_eye_max",
+        "ir_eye_mean",
+        "ir_pct_below_-50",
+        "ir_pct_below_-30"
+      ],
+      "gbm": {
+        "per_seed": [
+          {
+            "seed": 42,
+            "brier": 0.04136434467993661,
+            "brier_skill_vs_climatology": 0.10261408323956578,
+            "pod": 0.13740458015267176,
+            "roc_auc": 0.8919113963269126,
+            "mean_pred": 0.058654361456375266,
+            "bootstrap_bss": {
+              "bss_mean": 0.09702768919513079,
+              "bss_lo": -0.04343625122866248,
+              "bss_hi": 0.20462896143373807
+            }
+          },
+          {
+            "seed": 43,
+            "brier": 0.04134175854044172,
+            "brier_skill_vs_climatology": 0.10310408214208766,
+            "pod": 0.13740458015267176,
+            "roc_auc": 0.8918642632071616,
+            "mean_pred": 0.05865985784084588,
+            "bootstrap_bss": {
+              "bss_mean": 0.09753739499091628,
+              "bss_lo": -0.042507327893994945,
+              "bss_hi": 0.20436924979365312
+            }
+          },
+          {
+            "seed": 44,
+            "brier": 0.041336710445049996,
+            "brier_skill_vs_climatology": 0.10321359891906179,
+            "pod": 0.13740458015267176,
+            "roc_auc": 0.8920527956861659,
+            "mean_pred": 0.05864162731612388,
+            "bootstrap_bss": {
+              "bss_mean": 0.09765297363806832,
+              "bss_lo": -0.04259036628476456,
+              "bss_hi": 0.2046371838606414
+            }
+          }
+        ],
+        "bss_mean": 0.10297725476690507,
+        "bss_std": 0.00031924700439028196
+      },
+      "mlp_unweighted": {
+        "per_seed": [
+          {
+            "seed": 42,
+            "brier": 0.037240305603341295,
+            "brier_skill_vs_climatology": 0.1920837609569891,
+            "pod": 0.002544529262086514,
+            "roc_auc": 0.9009228862608604,
+            "mean_pred": 0.05296346917748451,
+            "best_epoch": 5,
+            "bootstrap_bss": {
+              "bss_mean": 0.18468065283328652,
+              "bss_lo": 0.06215482841415777,
+              "bss_hi": 0.27214974966604855
+            }
+          },
+          {
+            "seed": 43,
+            "brier": 0.036340304423257815,
+            "brier_skill_vs_climatology": 0.21160899193366722,
+            "pod": 0.022900763358778626,
+            "roc_auc": 0.9094249759390368,
+            "mean_pred": 0.046080704778432846,
+            "best_epoch": 4,
+            "bootstrap_bss": {
+              "bss_mean": 0.2069605765256581,
+              "bss_lo": 0.12230536557476167,
+              "bss_hi": 0.2764916247647226
+            }
+          },
+          {
+            "seed": 44,
+            "brier": 0.03632197008056791,
+            "brier_skill_vs_climatology": 0.212006749496377,
+            "pod": 0.09923664122137404,
+            "roc_auc": 0.9085558148426479,
+            "mean_pred": 0.05305292829871178,
+            "best_epoch": 9,
+            "bootstrap_bss": {
+              "bss_mean": 0.20479971570075145,
+              "bss_lo": 0.06667314424468937,
+              "bss_hi": 0.30783328280762234
+            }
+          }
+        ],
+        "bss_mean": 0.20523316746234443,
+        "bss_std": 0.011389456587211888
+      }
+    }
+  },
+  "note": "Unweighted MLP and Platt-calibrated GBM; no image pathway here."
+}

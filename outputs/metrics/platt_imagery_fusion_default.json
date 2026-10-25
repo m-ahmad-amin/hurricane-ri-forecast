@@ -1,0 +1,268 @@
+{
+  "rows": [
+    {
+      "model": "imagery",
+      "name_tag": "default",
+      "seed": 42,
+      "calibrator": "raw",
+      "bss": -0.06785620593426867,
+      "mean_pred": 0.009254216216504574,
+      "pod": 0.030534351145038167,
+      "roc_auc": 0.7234179092670965,
+      "pr_auc": 0.13120022390650699
+    },
+    {
+      "model": "imagery",
+      "name_tag": "default",
+      "seed": 42,
+      "calibrator": "temperature",
+      "bss": -0.007031213329501185,
+      "mean_pred": 0.05437833811007376,
+      "pod": 0.030534351145038167,
+      "roc_auc": 0.7094269535524529,
+      "pr_auc": 0.12801514004321213
+    },
+    {
+      "model": "imagery",
+      "name_tag": "default",
+      "seed": 42,
+      "calibrator": "platt",
+      "bss": 0.010295714496817321,
+      "mean_pred": 0.04575108936175049,
+      "pod": 0.0,
+      "roc_auc": 0.7234179092670965,
+      "pr_auc": 0.13120022390650699
+    },
+    {
+      "model": "imagery",
+      "name_tag": "default",
+      "seed": 42,
+      "calibrator": "isotonic",
+      "bss": 0.036558109598920696,
+      "mean_pred": 0.044869812042179685,
+      "pod": 0.0,
+      "roc_auc": 0.7221354269667365,
+      "pr_auc": 0.11998377978859824
+    },
+    {
+      "model": "imagery",
+      "name_tag": "default",
+      "seed": 43,
+      "calibrator": "raw",
+      "bss": -0.16285609161847336,
+      "mean_pred": 0.042472247034311295,
+      "pod": 0.11450381679389313,
+      "roc_auc": 0.7027543210853143,
+      "pr_auc": 0.11262004098288012
+    },
+    {
+      "model": "imagery",
+      "name_tag": "default",
+      "seed": 43,
+      "calibrator": "temperature",
+      "bss": -0.1653417768817449,
+      "mean_pred": 0.08013056494773454,
+      "pod": 0.11450381679389313,
+      "roc_auc": 0.7027543210853142,
+      "pr_auc": 0.11262004098288012
+    },
+    {
+      "model": "imagery",
+      "name_tag": "default",
+      "seed": 43,
+      "calibrator": "platt",
+      "bss": 0.015354948968654636,
+      "mean_pred": 0.04491287561496258,
+      "pod": 0.0,
+      "roc_auc": 0.7027543210853143,
+      "pr_auc": 0.11262004098288012
+    },
+    {
+      "model": "imagery",
+      "name_tag": "default",
+      "seed": 43,
+      "calibrator": "isotonic",
+      "bss": 0.02338344357892097,
+      "mean_pred": 0.04622043767282231,
+      "pod": 0.0,
+      "roc_auc": 0.6952056058748303,
+      "pr_auc": 0.09712090428785544
+    },
+    {
+      "model": "imagery",
+      "name_tag": "default",
+      "seed": 44,
+      "calibrator": "raw",
+      "bss": -0.12279277328319571,
+      "mean_pred": 0.03943929448723793,
+      "pod": 0.11959287531806616,
+      "roc_auc": 0.7538120146607075,
+      "pr_auc": 0.1589539668426198
+    },
+    {
+      "model": "imagery",
+      "name_tag": "default",
+      "seed": 44,
+      "calibrator": "temperature",
+      "bss": -0.10052302334586205,
+      "mean_pred": 0.07232601164959504,
+      "pod": 0.11959287531806616,
+      "roc_auc": 0.7538418436630674,
+      "pr_auc": 0.15895190407760282
+    },
+    {
+      "model": "imagery",
+      "name_tag": "default",
+      "seed": 44,
+      "calibrator": "platt",
+      "bss": 0.026136696744983756,
+      "mean_pred": 0.04426962755079197,
+      "pod": 0.030534351145038167,
+      "roc_auc": 0.7538120146607075,
+      "pr_auc": 0.1589539668426198
+    },
+    {
+      "model": "imagery",
+      "name_tag": "default",
+      "seed": 44,
+      "calibrator": "isotonic",
+      "bss": 0.03630210796267941,
+      "mean_pred": 0.044825658444562454,
+      "pod": 0.03307888040712468,
+      "roc_auc": 0.746713041701275,
+      "pr_auc": 0.14169895905355379
+    },
+    {
+      "model": "fusion",
+      "name_tag": "default",
+      "seed": 42,
+      "calibrator": "raw",
+      "bss": -0.21082739374302784,
+      "mean_pred": 0.06929325312376022,
+      "pod": 0.356234096692112,
+      "roc_auc": 0.8530423934395972,
+      "pr_auc": 0.2919476236794484
+    },
+    {
+      "model": "fusion",
+      "name_tag": "default",
+      "seed": 42,
+      "calibrator": "temperature",
+      "bss": -0.14603732756057708,
+      "mean_pred": 0.09915544900860523,
+      "pod": 0.356234096692112,
+      "roc_auc": 0.853042393439597,
+      "pr_auc": 0.2919476236794484
+    },
+    {
+      "model": "fusion",
+      "name_tag": "default",
+      "seed": 42,
+      "calibrator": "platt",
+      "bss": 0.11112069652375389,
+      "mean_pred": 0.04342831412520104,
+      "pod": 0.0,
+      "roc_auc": 0.8530423934395972,
+      "pr_auc": 0.2919476236794484
+    },
+    {
+      "model": "fusion",
+      "name_tag": "default",
+      "seed": 42,
+      "calibrator": "isotonic",
+      "bss": 0.1351359321592689,
+      "mean_pred": 0.044943621601679466,
+      "pod": 0.1297709923664122,
+      "roc_auc": 0.8518902688235838,
+      "pr_auc": 0.2725090128298071
+    },
+    {
+      "model": "fusion",
+      "name_tag": "default",
+      "seed": 43,
+      "calibrator": "raw",
+      "bss": -0.3017139187869342,
+      "mean_pred": 0.13466686010360718,
+      "pod": 0.6208651399491094,
+      "roc_auc": 0.9055366583606903,
+      "pr_auc": 0.41995977229105497
+    },
+    {
+      "model": "fusion",
+      "name_tag": "default",
+      "seed": 43,
+      "calibrator": "temperature",
+      "bss": -0.3043118378052836,
+      "mean_pred": 0.13640274968891994,
+      "pod": 0.6208651399491094,
+      "roc_auc": 0.9055366583606903,
+      "pr_auc": 0.41995977229105497
+    },
+    {
+      "model": "fusion",
+      "name_tag": "default",
+      "seed": 43,
+      "calibrator": "platt",
+      "bss": 0.23143830889367412,
+      "mean_pred": 0.052206406309505404,
+      "pod": 0.10178117048346055,
+      "roc_auc": 0.9055366583606903,
+      "pr_auc": 0.41995977229105497
+    },
+    {
+      "model": "fusion",
+      "name_tag": "default",
+      "seed": 43,
+      "calibrator": "isotonic",
+      "bss": 0.2195543912072515,
+      "mean_pred": 0.053839500088698505,
+      "pod": 0.25699745547073793,
+      "roc_auc": 0.9006972735303037,
+      "pr_auc": 0.3364982999129924
+    },
+    {
+      "model": "fusion",
+      "name_tag": "default",
+      "seed": 44,
+      "calibrator": "raw",
+      "bss": -0.43166226146397,
+      "mean_pred": 0.1259819120168686,
+      "pod": 0.6310432569974554,
+      "roc_auc": 0.8942968925101188,
+      "pr_auc": 0.381331005451908
+    },
+    {
+      "model": "fusion",
+      "name_tag": "default",
+      "seed": 44,
+      "calibrator": "temperature",
+      "bss": -0.4076788294414009,
+      "mean_pred": 0.14454165478261546,
+      "pod": 0.6310432569974554,
+      "roc_auc": 0.8942968925101188,
+      "pr_auc": 0.381331005451908
+    },
+    {
+      "model": "fusion",
+      "name_tag": "default",
+      "seed": 44,
+      "calibrator": "platt",
+      "bss": 0.18977411513552878,
+      "mean_pred": 0.05027359379368583,
+      "pod": 0.0,
+      "roc_auc": 0.8942968925101188,
+      "pr_auc": 0.381331005451908
+    },
+    {
+      "model": "fusion",
+      "name_tag": "default",
+      "seed": 44,
+      "calibrator": "isotonic",
+      "bss": 0.18701741500775082,
+      "mean_pred": 0.05217634857929329,
+      "pod": 0.0,
+      "roc_auc": 0.8930355047528643,
+      "pr_auc": 0.3504431017101981
+    }
+  ]
+}

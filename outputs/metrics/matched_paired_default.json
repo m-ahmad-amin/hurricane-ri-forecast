@@ -1,0 +1,858 @@
+{
+  "tag": "default",
+  "n_boot": 500,
+  "bias_audit": [
+    {
+      "seed": 42,
+      "checkpoint": {
+        "path": "tabular_default.pt",
+        "best_epoch": 10,
+        "best_val_brier": 0.0741524419863536,
+        "best_val_bss": -0.6585549490677027,
+        "note": "checkpoint stores best_state by min val Brier; evaluate.py loads that file"
+      },
+      "ri_rates": {
+        "train": 0.036763932555913925,
+        "val": 0.046909574419260025,
+        "test": 0.04844077304005623
+      },
+      "mean_pred_raw": {
+        "train": 0.13547487556934357,
+        "val": 0.13034412264823914,
+        "test": 0.14778415858745575
+      },
+      "mean_pred_temperature_test": 0.16232527246017456,
+      "mean_pred_platt_test": 0.05109796277199992,
+      "mean_pred_isotonic_test": 0.051816740078287446,
+      "val_bss_raw": -0.6585548989384138,
+      "val_brier_raw": 0.07415243974511992,
+      "val_climatology_brier": 0.04470906558027259,
+      "pos_weight_note": "Training uses BCEWithLogitsLoss with pos_weight=n_neg/n_pos, which induces overforecasting bias (mean p >> RI rate) even at best val Brier."
+    },
+    {
+      "seed": 43,
+      "checkpoint": {
+        "path": "tabular_default_seed43.pt",
+        "best_epoch": 27,
+        "best_val_brier": 0.06572328632648355,
+        "best_val_bss": -0.4700214704438661,
+        "note": "checkpoint stores best_state by min val Brier; evaluate.py loads that file"
+      },
+      "ri_rates": {
+        "train": 0.036763932555913925,
+        "val": 0.046909574419260025,
+        "test": 0.04844077304005623
+      },
+      "mean_pred_raw": {
+        "train": 0.10226168483495712,
+        "val": 0.0948697105050087,
+        "test": 0.1119416207075119
+      },
+      "mean_pred_temperature_test": 0.13545632488451867,
+      "mean_pred_platt_test": 0.0505641059441176,
+      "mean_pred_isotonic_test": 0.05242148215458404,
+      "val_bss_raw": -0.4700214655608117,
+      "val_brier_raw": 0.06572328610816676,
+      "val_climatology_brier": 0.04470906558027259,
+      "pos_weight_note": "Training uses BCEWithLogitsLoss with pos_weight=n_neg/n_pos, which induces overforecasting bias (mean p >> RI rate) even at best val Brier."
+    },
+    {
+      "seed": 44,
+      "checkpoint": {
+        "path": "tabular_default_seed44.pt",
+        "best_epoch": 14,
+        "best_val_brier": 0.07141988231846627,
+        "best_val_bss": -0.5974362557462964,
+        "note": "checkpoint stores best_state by min val Brier; evaluate.py loads that file"
+      },
+      "ri_rates": {
+        "train": 0.036763932555913925,
+        "val": 0.046909574419260025,
+        "test": 0.04844077304005623
+      },
+      "mean_pred_raw": {
+        "train": 0.12275741994380951,
+        "val": 0.11905242502689362,
+        "test": 0.13383811712265015
+      },
+      "mean_pred_temperature_test": 0.14863952652819176,
+      "mean_pred_platt_test": 0.050675772256264066,
+      "mean_pred_isotonic_test": 0.05084492957390205,
+      "val_bss_raw": -0.5974362283652435,
+      "val_brier_raw": 0.07141988109428497,
+      "val_climatology_brier": 0.04470906558027259,
+      "pos_weight_note": "Training uses BCEWithLogitsLoss with pos_weight=n_neg/n_pos, which induces overforecasting bias (mean p >> RI rate) even at best val Brier."
+    }
+  ],
+  "paired_delta_bss": [
+    {
+      "seed": 42,
+      "contrast": "imagery_minus_gbm",
+      "calibrator": "isotonic",
+      "scope": "Cat1-2",
+      "point_delta_bss": -0.22164731565817197,
+      "bss_a": 0.03380474921808918,
+      "bss_b": 0.25545206487626115,
+      "n": 1383,
+      "n_storms": 32,
+      "delta_mean": -0.218930329492185,
+      "delta_lo": -0.32211119898009544,
+      "delta_hi": -0.08381336349526444
+    },
+    {
+      "seed": 42,
+      "contrast": "imagery_minus_tabular",
+      "calibrator": "isotonic",
+      "scope": "Cat1-2",
+      "point_delta_bss": -0.16459793484487562,
+      "bss_a": 0.03380474921808918,
+      "bss_b": 0.1984026840629648,
+      "n": 1383,
+      "n_storms": 32,
+      "delta_mean": -0.15859286354925042,
+      "delta_lo": -0.27682533057025205,
+      "delta_hi": 0.02805362974998115
+    },
+    {
+      "seed": 42,
+      "contrast": "imagery_minus_gbm",
+      "calibrator": "isotonic",
+      "scope": "overall",
+      "point_delta_bss": -0.07583043098935971,
+      "bss_a": 0.036558109598920696,
+      "bss_b": 0.1123885405882804,
+      "n": 8113,
+      "n_storms": 75,
+      "delta_mean": -0.07092660930202056,
+      "delta_lo": -0.17025601132296858,
+      "delta_hi": 0.07162374492466436
+    },
+    {
+      "seed": 42,
+      "contrast": "tabular_minus_gbm",
+      "calibrator": "platt",
+      "scope": "overall",
+      "point_delta_bss": 0.09122929984040706,
+      "bss_a": 0.1944161182875781,
+      "bss_b": 0.10318681844717104,
+      "n": 8113,
+      "n_storms": 75,
+      "delta_mean": 0.09147937181440491,
+      "delta_lo": 0.006967866376815142,
+      "delta_hi": 0.18100135743818938
+    },
+    {
+      "seed": 42,
+      "contrast": "tabular_minus_gbm",
+      "calibrator": "platt",
+      "scope": "Cat1-2",
+      "point_delta_bss": -0.016321139764189252,
+      "bss_a": 0.20396909913477435,
+      "bss_b": 0.2202902388989636,
+      "n": 1383,
+      "n_storms": 32,
+      "delta_mean": -0.019831272281972675,
+      "delta_lo": -0.20207210130772288,
+      "delta_hi": 0.12549457097557462
+    },
+    {
+      "seed": 42,
+      "contrast": "tabular_minus_gbm",
+      "calibrator": "isotonic",
+      "scope": "overall",
+      "point_delta_bss": 0.08063470579025978,
+      "bss_a": 0.19302324637854018,
+      "bss_b": 0.1123885405882804,
+      "n": 8113,
+      "n_storms": 75,
+      "delta_mean": 0.0830597389927677,
+      "delta_lo": 0.0010404306131483396,
+      "delta_hi": 0.18800728956903123
+    },
+    {
+      "seed": 42,
+      "contrast": "tabular_minus_gbm",
+      "calibrator": "isotonic",
+      "scope": "Cat1-2",
+      "point_delta_bss": -0.05704938081329636,
+      "bss_a": 0.1984026840629648,
+      "bss_b": 0.25545206487626115,
+      "n": 1383,
+      "n_storms": 32,
+      "delta_mean": -0.060337465942934584,
+      "delta_lo": -0.18703050876079308,
+      "delta_hi": 0.05760793937130824
+    },
+    {
+      "seed": 43,
+      "contrast": "imagery_minus_gbm",
+      "calibrator": "isotonic",
+      "scope": "Cat1-2",
+      "point_delta_bss": -0.23380554241144424,
+      "bss_a": 0.02240829119419363,
+      "bss_b": 0.2562138336056379,
+      "n": 1383,
+      "n_storms": 32,
+      "delta_mean": -0.23026568759299648,
+      "delta_lo": -0.3289495462441991,
+      "delta_hi": -0.09848878115592824
+    },
+    {
+      "seed": 43,
+      "contrast": "imagery_minus_tabular",
+      "calibrator": "isotonic",
+      "scope": "Cat1-2",
+      "point_delta_bss": -0.17315212792917956,
+      "bss_a": 0.02240829119419363,
+      "bss_b": 0.19556041912337319,
+      "n": 1383,
+      "n_storms": 32,
+      "delta_mean": -0.17182128173149883,
+      "delta_lo": -0.28803068924653524,
+      "delta_hi": -0.025970437324523397
+    },
+    {
+      "seed": 43,
+      "contrast": "imagery_minus_gbm",
+      "calibrator": "isotonic",
+      "scope": "overall",
+      "point_delta_bss": -0.08739512957008921,
+      "bss_a": 0.02338344357892097,
+      "bss_b": 0.11077857314901018,
+      "n": 8113,
+      "n_storms": 75,
+      "delta_mean": -0.08251323558437225,
+      "delta_lo": -0.17762222218431864,
+      "delta_hi": 0.035146277055191424
+    },
+    {
+      "seed": 43,
+      "contrast": "tabular_minus_gbm",
+      "calibrator": "platt",
+      "scope": "overall",
+      "point_delta_bss": 0.08837416348864657,
+      "bss_a": 0.1903993818335803,
+      "bss_b": 0.10202521834493372,
+      "n": 8113,
+      "n_storms": 75,
+      "delta_mean": 0.08914742349251348,
+      "delta_lo": 0.01131157147280864,
+      "delta_hi": 0.17053731895869367
+    },
+    {
+      "seed": 43,
+      "contrast": "tabular_minus_gbm",
+      "calibrator": "platt",
+      "scope": "Cat1-2",
+      "point_delta_bss": -0.0318896167066276,
+      "bss_a": 0.18720531507077098,
+      "bss_b": 0.21909493177739858,
+      "n": 1383,
+      "n_storms": 32,
+      "delta_mean": -0.03387402464093341,
+      "delta_lo": -0.15725819660050575,
+      "delta_hi": 0.09956292275742011
+    },
+    {
+      "seed": 43,
+      "contrast": "tabular_minus_gbm",
+      "calibrator": "isotonic",
+      "scope": "overall",
+      "point_delta_bss": 0.08462453430092709,
+      "bss_a": 0.19540310744993727,
+      "bss_b": 0.11077857314901018,
+      "n": 8113,
+      "n_storms": 75,
+      "delta_mean": 0.08614198925236756,
+      "delta_lo": 0.004823097382581219,
+      "delta_hi": 0.17979434293030241
+    },
+    {
+      "seed": 43,
+      "contrast": "tabular_minus_gbm",
+      "calibrator": "isotonic",
+      "scope": "Cat1-2",
+      "point_delta_bss": -0.06065341448226469,
+      "bss_a": 0.19556041912337319,
+      "bss_b": 0.2562138336056379,
+      "n": 1383,
+      "n_storms": 32,
+      "delta_mean": -0.05844440586149763,
+      "delta_lo": -0.16669182704861854,
+      "delta_hi": 0.05268918861406576
+    },
+    {
+      "seed": 44,
+      "contrast": "imagery_minus_gbm",
+      "calibrator": "isotonic",
+      "scope": "Cat1-2",
+      "point_delta_bss": -0.17743170915144313,
+      "bss_a": 0.07789300067794869,
+      "bss_b": 0.2553247098293918,
+      "n": 1383,
+      "n_storms": 32,
+      "delta_mean": -0.17542710544365672,
+      "delta_lo": -0.3249132041669665,
+      "delta_hi": 0.007162984246199154
+    },
+    {
+      "seed": 44,
+      "contrast": "imagery_minus_tabular",
+      "calibrator": "isotonic",
+      "scope": "Cat1-2",
+      "point_delta_bss": -0.11839090821247611,
+      "bss_a": 0.07789300067794869,
+      "bss_b": 0.1962839088904248,
+      "n": 1383,
+      "n_storms": 32,
+      "delta_mean": -0.11254917107273751,
+      "delta_lo": -0.24191932812993547,
+      "delta_hi": 0.06614743654744044
+    },
+    {
+      "seed": 44,
+      "contrast": "imagery_minus_gbm",
+      "calibrator": "isotonic",
+      "scope": "overall",
+      "point_delta_bss": -0.0667802955319069,
+      "bss_a": 0.03630210796267941,
+      "bss_b": 0.1030824034945863,
+      "n": 8113,
+      "n_storms": 75,
+      "delta_mean": -0.05821986541988345,
+      "delta_lo": -0.16203712748639906,
+      "delta_hi": 0.07280479815320709
+    },
+    {
+      "seed": 44,
+      "contrast": "tabular_minus_gbm",
+      "calibrator": "platt",
+      "scope": "overall",
+      "point_delta_bss": 0.08549563839805074,
+      "bss_a": 0.18693509319138124,
+      "bss_b": 0.1014394547933305,
+      "n": 8113,
+      "n_storms": 75,
+      "delta_mean": 0.08478514602831533,
+      "delta_lo": -0.0075385335641106515,
+      "delta_hi": 0.1727515070688845
+    },
+    {
+      "seed": 44,
+      "contrast": "tabular_minus_gbm",
+      "calibrator": "platt",
+      "scope": "Cat1-2",
+      "point_delta_bss": -0.028715279145456907,
+      "bss_a": 0.19134818309525758,
+      "bss_b": 0.2200634622407145,
+      "n": 1383,
+      "n_storms": 32,
+      "delta_mean": -0.031430528342825094,
+      "delta_lo": -0.16031103867250687,
+      "delta_hi": 0.09400600745143062
+    },
+    {
+      "seed": 44,
+      "contrast": "tabular_minus_gbm",
+      "calibrator": "isotonic",
+      "scope": "overall",
+      "point_delta_bss": 0.08466673846604189,
+      "bss_a": 0.1877491419606282,
+      "bss_b": 0.1030824034945863,
+      "n": 8113,
+      "n_storms": 75,
+      "delta_mean": 0.08716879158356221,
+      "delta_lo": 0.0004308123515831853,
+      "delta_hi": 0.18111289787329032
+    },
+    {
+      "seed": 44,
+      "contrast": "tabular_minus_gbm",
+      "calibrator": "isotonic",
+      "scope": "Cat1-2",
+      "point_delta_bss": -0.05904080093896702,
+      "bss_a": 0.1962839088904248,
+      "bss_b": 0.2553247098293918,
+      "n": 1383,
+      "n_storms": 32,
+      "delta_mean": -0.06287793437091921,
+      "delta_lo": -0.16936228089262312,
+      "delta_hi": 0.03237243076617789
+    }
+  ],
+  "ranking_clustered": [
+    {
+      "seed": 42,
+      "model": "tabular",
+      "scope": "overall",
+      "roc_auc": {
+        "point": 0.8970803833933209,
+        "mean": 0.8958806030944021,
+        "lo": 0.8559075624625111,
+        "hi": 0.932740254384858
+      },
+      "pr_auc": {
+        "point": 0.3833525920730392,
+        "mean": 0.3894527499714068,
+        "lo": 0.2385027814738108,
+        "hi": 0.5359257373573068
+      }
+    },
+    {
+      "seed": 42,
+      "model": "gbm",
+      "scope": "overall",
+      "roc_auc": {
+        "point": 0.8919291948476579,
+        "mean": 0.8912357253130182,
+        "lo": 0.851923768031095,
+        "hi": 0.9225573496467254
+      },
+      "pr_auc": {
+        "point": 0.29329993723081843,
+        "mean": 0.2999158729878486,
+        "lo": 0.1851314681082241,
+        "hi": 0.4265028495609328
+      }
+    },
+    {
+      "seed": 42,
+      "model": "imagery",
+      "scope": "overall",
+      "roc_auc": {
+        "point": 0.7234179092670965,
+        "mean": 0.7216232109515864,
+        "lo": 0.6505474154651438,
+        "hi": 0.7905284393720472
+      },
+      "pr_auc": {
+        "point": 0.13120022390650699,
+        "mean": 0.13483208430620153,
+        "lo": 0.07315006839254903,
+        "hi": 0.21747609141055904
+      }
+    },
+    {
+      "seed": 43,
+      "model": "tabular",
+      "scope": "overall",
+      "roc_auc": {
+        "point": 0.8863707827393901,
+        "mean": 0.8848000469531956,
+        "lo": 0.8172255554750907,
+        "hi": 0.932124915559995
+      },
+      "pr_auc": {
+        "point": 0.38117437748030947,
+        "mean": 0.38474623923167584,
+        "lo": 0.24644686832493753,
+        "hi": 0.517843493887515
+      }
+    },
+    {
+      "seed": 43,
+      "model": "gbm",
+      "scope": "overall",
+      "roc_auc": {
+        "point": 0.8918237221321309,
+        "mean": 0.8908742971768002,
+        "lo": 0.8546753523327659,
+        "hi": 0.9214074703497779
+      },
+      "pr_auc": {
+        "point": 0.29275740059450955,
+        "mean": 0.2994127772608483,
+        "lo": 0.19457885322947804,
+        "hi": 0.409524329876532
+      }
+    },
+    {
+      "seed": 43,
+      "model": "imagery",
+      "scope": "overall",
+      "roc_auc": {
+        "point": 0.7027543210853143,
+        "mean": 0.7023313216248745,
+        "lo": 0.6304734863270928,
+        "hi": 0.7731432813271742
+      },
+      "pr_auc": {
+        "point": 0.11262004098288012,
+        "mean": 0.11823186827040774,
+        "lo": 0.06598670162693883,
+        "hi": 0.17868285648011958
+      }
+    },
+    {
+      "seed": 44,
+      "model": "tabular",
+      "scope": "overall",
+      "roc_auc": {
+        "point": 0.8926861263826814,
+        "mean": 0.8913186367084672,
+        "lo": 0.8379071897158077,
+        "hi": 0.9334086088915964
+      },
+      "pr_auc": {
+        "point": 0.34772515342134713,
+        "mean": 0.35372271157135166,
+        "lo": 0.2102350490630092,
+        "hi": 0.5111700775167977
+      }
+    },
+    {
+      "seed": 44,
+      "model": "gbm",
+      "scope": "overall",
+      "roc_auc": {
+        "point": 0.8919209547917574,
+        "mean": 0.8897984605796778,
+        "lo": 0.8520058213901025,
+        "hi": 0.9234126283707206
+      },
+      "pr_auc": {
+        "point": 0.2928983329411206,
+        "mean": 0.29682864879357146,
+        "lo": 0.19411544106020415,
+        "hi": 0.42726764151384955
+      }
+    },
+    {
+      "seed": 44,
+      "model": "imagery",
+      "scope": "overall",
+      "roc_auc": {
+        "point": 0.7538120146607075,
+        "mean": 0.7551288600797657,
+        "lo": 0.695445349883987,
+        "hi": 0.8111812285002037
+      },
+      "pr_auc": {
+        "point": 0.1589539668426198,
+        "mean": 0.1682079887409991,
+        "lo": 0.08765822149873237,
+        "hi": 0.27732546014343973
+      }
+    }
+  ],
+  "detection_val_csi_threshold": [
+    {
+      "seed": 42,
+      "model": "tabular",
+      "calibrator": "raw",
+      "val_csi_threshold": 0.5744675,
+      "test_csi": 0.24603174603174602,
+      "test_pod": 0.6310432569974554,
+      "test_far": 0.712630359212051,
+      "tp": 248,
+      "fp": 615,
+      "fn": 145,
+      "tn": 7105
+    },
+    {
+      "seed": 42,
+      "model": "tabular",
+      "calibrator": "temperature",
+      "val_csi_threshold": 0.559484,
+      "test_csi": 0.24701195219123506,
+      "test_pod": 0.6310432569974554,
+      "test_far": 0.7112922002328289,
+      "tp": 248,
+      "fp": 611,
+      "fn": 145,
+      "tn": 7109
+    },
+    {
+      "seed": 42,
+      "model": "tabular",
+      "calibrator": "platt",
+      "val_csi_threshold": 0.129957,
+      "test_csi": 0.24630541871921183,
+      "test_pod": 0.6361323155216285,
+      "test_far": 0.713302752293578,
+      "tp": 250,
+      "fp": 622,
+      "fn": 143,
+      "tn": 7098
+    },
+    {
+      "seed": 42,
+      "model": "tabular",
+      "calibrator": "isotonic",
+      "val_csi_threshold": 0.15492949999999997,
+      "test_csi": 0.24627606752730885,
+      "test_pod": 0.6310432569974554,
+      "test_far": 0.7122969837587007,
+      "tp": 248,
+      "fp": 614,
+      "fn": 145,
+      "tn": 7106
+    },
+    {
+      "seed": 42,
+      "model": "gbm",
+      "calibrator": "raw",
+      "val_csi_threshold": 0.21985799999999997,
+      "test_csi": 0.2378449408672799,
+      "test_pod": 0.46055979643765904,
+      "test_far": 0.6703096539162113,
+      "tp": 181,
+      "fp": 368,
+      "fn": 212,
+      "tn": 7352
+    },
+    {
+      "seed": 42,
+      "model": "gbm",
+      "calibrator": "temperature",
+      "val_csi_threshold": 0.259814,
+      "test_csi": 0.23941798941798942,
+      "test_pod": 0.46055979643765904,
+      "test_far": 0.6672794117647058,
+      "tp": 181,
+      "fp": 363,
+      "fn": 212,
+      "tn": 7357
+    },
+    {
+      "seed": 42,
+      "model": "gbm",
+      "calibrator": "platt",
+      "val_csi_threshold": 0.1049845,
+      "test_csi": 0.23753280839895013,
+      "test_pod": 0.46055979643765904,
+      "test_far": 0.6709090909090909,
+      "tp": 181,
+      "fp": 369,
+      "fn": 212,
+      "tn": 7351
+    },
+    {
+      "seed": 42,
+      "model": "gbm",
+      "calibrator": "isotonic",
+      "val_csi_threshold": 0.129957,
+      "test_csi": 0.23941798941798942,
+      "test_pod": 0.46055979643765904,
+      "test_far": 0.6672794117647058,
+      "tp": 181,
+      "fp": 363,
+      "fn": 212,
+      "tn": 7357
+    },
+    {
+      "seed": 43,
+      "model": "tabular",
+      "calibrator": "raw",
+      "val_csi_threshold": 0.29977,
+      "test_csi": 0.2355808285946385,
+      "test_pod": 0.7379134860050891,
+      "test_far": 0.7429078014184397,
+      "tp": 290,
+      "fp": 838,
+      "fn": 103,
+      "tn": 6882
+    },
+    {
+      "seed": 43,
+      "model": "tabular",
+      "calibrator": "temperature",
+      "val_csi_threshold": 0.37468749999999995,
+      "test_csi": 0.2355808285946385,
+      "test_pod": 0.7379134860050891,
+      "test_far": 0.7429078014184397,
+      "tp": 290,
+      "fp": 838,
+      "fn": 103,
+      "tn": 6882
+    },
+    {
+      "seed": 43,
+      "model": "tabular",
+      "calibrator": "platt",
+      "val_csi_threshold": 0.0650285,
+      "test_csi": 0.23699421965317918,
+      "test_pod": 0.7302798982188295,
+      "test_far": 0.7402714932126697,
+      "tp": 287,
+      "fp": 818,
+      "fn": 106,
+      "tn": 6902
+    },
+    {
+      "seed": 43,
+      "model": "tabular",
+      "calibrator": "isotonic",
+      "val_csi_threshold": 0.0750175,
+      "test_csi": 0.2355808285946385,
+      "test_pod": 0.7379134860050891,
+      "test_far": 0.7429078014184397,
+      "tp": 290,
+      "fp": 838,
+      "fn": 103,
+      "tn": 6882
+    },
+    {
+      "seed": 43,
+      "model": "gbm",
+      "calibrator": "raw",
+      "val_csi_threshold": 0.21985799999999997,
+      "test_csi": 0.2378449408672799,
+      "test_pod": 0.46055979643765904,
+      "test_far": 0.6703096539162113,
+      "tp": 181,
+      "fp": 368,
+      "fn": 212,
+      "tn": 7352
+    },
+    {
+      "seed": 43,
+      "model": "gbm",
+      "calibrator": "temperature",
+      "val_csi_threshold": 0.259814,
+      "test_csi": 0.23941798941798942,
+      "test_pod": 0.46055979643765904,
+      "test_far": 0.6672794117647058,
+      "tp": 181,
+      "fp": 363,
+      "fn": 212,
+      "tn": 7357
+    },
+    {
+      "seed": 43,
+      "model": "gbm",
+      "calibrator": "platt",
+      "val_csi_threshold": 0.1049845,
+      "test_csi": 0.2388451443569554,
+      "test_pod": 0.4631043256997455,
+      "test_far": 0.6696914700544465,
+      "tp": 182,
+      "fp": 369,
+      "fn": 211,
+      "tn": 7351
+    },
+    {
+      "seed": 43,
+      "model": "gbm",
+      "calibrator": "isotonic",
+      "val_csi_threshold": 0.129957,
+      "test_csi": 0.23941798941798942,
+      "test_pod": 0.46055979643765904,
+      "test_far": 0.6672794117647058,
+      "tp": 181,
+      "fp": 363,
+      "fn": 212,
+      "tn": 7357
+    },
+    {
+      "seed": 44,
+      "model": "tabular",
+      "calibrator": "raw",
+      "val_csi_threshold": 0.389671,
+      "test_csi": 0.22509803921568627,
+      "test_pod": 0.7302798982188295,
+      "test_far": 0.7544910179640718,
+      "tp": 287,
+      "fp": 882,
+      "fn": 106,
+      "tn": 6838
+    },
+    {
+      "seed": 44,
+      "model": "tabular",
+      "calibrator": "temperature",
+      "val_csi_threshold": 0.4146435,
+      "test_csi": 0.22666666666666666,
+      "test_pod": 0.7353689567430025,
+      "test_far": 0.753202391118702,
+      "tp": 289,
+      "fp": 882,
+      "fn": 104,
+      "tn": 6838
+    },
+    {
+      "seed": 44,
+      "model": "tabular",
+      "calibrator": "platt",
+      "val_csi_threshold": 0.0750175,
+      "test_csi": 0.22634069400630916,
+      "test_pod": 0.7302798982188295,
+      "test_far": 0.7530120481927711,
+      "tp": 287,
+      "fp": 875,
+      "fn": 106,
+      "tn": 6845
+    },
+    {
+      "seed": 44,
+      "model": "tabular",
+      "calibrator": "isotonic",
+      "val_csi_threshold": 0.15492949999999997,
+      "test_csi": 0.22509803921568627,
+      "test_pod": 0.7302798982188295,
+      "test_far": 0.7544910179640718,
+      "tp": 287,
+      "fp": 882,
+      "fn": 106,
+      "tn": 6838
+    },
+    {
+      "seed": 44,
+      "model": "gbm",
+      "calibrator": "raw",
+      "val_csi_threshold": 0.21985799999999997,
+      "test_csi": 0.23847167325428195,
+      "test_pod": 0.46055979643765904,
+      "test_far": 0.6691042047531993,
+      "tp": 181,
+      "fp": 366,
+      "fn": 212,
+      "tn": 7354
+    },
+    {
+      "seed": 44,
+      "model": "gbm",
+      "calibrator": "temperature",
+      "val_csi_threshold": 0.259814,
+      "test_csi": 0.24005305039787797,
+      "test_pod": 0.46055979643765904,
+      "test_far": 0.6660516605166051,
+      "tp": 181,
+      "fp": 361,
+      "fn": 212,
+      "tn": 7359
+    },
+    {
+      "seed": 44,
+      "model": "gbm",
+      "calibrator": "platt",
+      "val_csi_threshold": 0.1049845,
+      "test_csi": 0.2394736842105263,
+      "test_pod": 0.4631043256997455,
+      "test_far": 0.668488160291439,
+      "tp": 182,
+      "fp": 367,
+      "fn": 211,
+      "tn": 7353
+    },
+    {
+      "seed": 44,
+      "model": "gbm",
+      "calibrator": "isotonic",
+      "val_csi_threshold": 0.129957,
+      "test_csi": 0.24005305039787797,
+      "test_pod": 0.46055979643765904,
+      "test_far": 0.6660516605166051,
+      "tp": 181,
+      "fp": 361,
+      "fn": 212,
+      "tn": 7359
+    }
+  ],
+  "notes": [
+    "Training uses pos_weight in BCEWithLogitsLoss, inducing overforecasting bias.",
+    "Checkpoint restores min-val-Brier epoch; that epoch can still have val BSS << 0.",
+    "Temperature T>1 pulls probabilities toward 0.5, which can raise mean p when raw mean < 0.5.",
+    "POD@rate omitted: rank-invariant; use FAR/CSI at validation CSI-max threshold instead."
+  ]
+}

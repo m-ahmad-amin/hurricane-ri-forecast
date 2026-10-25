@@ -1,0 +1,18 @@
+{
+  "tag": "al062018",
+  "subset": true,
+  "n_samples": 17,
+  "n_ri": 1,
+  "ri_rate": 0.058823529411764705,
+  "splits": {
+    "train": 9,
+    "val": 4,
+    "test": 4
+  },
+  "paths": {
+    "table": "/content/drive/MyDrive/hurricane-ri-forecast/data/processed/samples_al062018.parquet",
+    "images": "/content/drive/MyDrive/hurricane-ri-forecast/data/processed/images_al062018.npy",
+    "meta": "/content/drive/MyDrive/hurricane-ri-forecast/data/processed/meta_al062018.json",
+    "features": "/content/drive/MyDrive/hurricane-ri-forecast/data/processed/features_al062018.json"
+  }
+}

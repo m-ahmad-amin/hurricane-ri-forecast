@@ -1,0 +1,54 @@
+{
+  "n": 4,
+  "ri_rate": 0.0,
+  "brier": 0.2315712702662518,
+  "brier_skill_vs_climatology": NaN,
+  "threshold": 0.5,
+  "tp": 0,
+  "fp": 1,
+  "fn": 0,
+  "tn": 3,
+  "pod": NaN,
+  "success_ratio": 0.0,
+  "far": 1.0,
+  "reliability": {
+    "bin_centers": [
+      0.45,
+      0.55
+    ],
+    "observed_frequency": [
+      0.0,
+      0.0
+    ],
+    "mean_confidence": [
+      0.4716055989265442,
+      0.5087248086929321
+    ],
+    "counts": [
+      3,
+      1
+    ]
+  },
+  "bootstrap_bss": {
+    "bss_mean": NaN,
+    "bss_lo": NaN,
+    "bss_hi": NaN
+  },
+  "model": "fusion",
+  "tag": "al062018",
+  "cases": {
+    "hit": null,
+    "miss": null,
+    "false_alarm": {
+      "storm_id": "AL062018",
+      "season": 2018,
+      "basin": "AL",
+      "time": 1536296581.0,
+      "prob": 0.5087248086929321,
+      "ri_label": 0,
+      "delta_v_24h": -1.0,
+      "overpass_file": "TCPRIMED_v01r01-final_AL062018_GMI_GPM_025708_20180907050301.nc",
+      "table_index": 0
+    }
+  }
+}

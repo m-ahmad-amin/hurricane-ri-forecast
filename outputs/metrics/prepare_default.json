@@ -1,0 +1,18 @@
+{
+  "tag": "default",
+  "subset": false,
+  "n_samples": 33878,
+  "n_ri": 1409,
+  "ri_rate": 0.04159041265718165,
+  "splits": {
+    "train": 18986,
+    "test": 8113,
+    "val": 6779
+  },
+  "paths": {
+    "table": "/content/drive/MyDrive/hurricane-ri-forecast/data/processed/samples_default.parquet",
+    "images": "/content/drive/MyDrive/hurricane-ri-forecast/data/processed/images_default.npy",
+    "meta": "/content/drive/MyDrive/hurricane-ri-forecast/data/processed/meta_default.json",
+    "features": "/content/drive/MyDrive/hurricane-ri-forecast/data/processed/features_default.json"
+  }
+}

@@ -1,0 +1,125 @@
+{
+  "tabular": {
+    "history": [
+      {
+        "epoch": 1,
+        "train_loss": 1.0419518947601318,
+        "val_loss": 0.7195757627487183,
+        "val_brier": 0.263176727690291,
+        "val_bss": NaN
+      },
+      {
+        "epoch": 2,
+        "train_loss": 0.960948646068573,
+        "val_loss": 0.699787437915802,
+        "val_brier": 0.2533101307607144,
+        "val_bss": NaN
+      },
+      {
+        "epoch": 3,
+        "train_loss": 0.9574168026447296,
+        "val_loss": 0.6808895468711853,
+        "val_brier": 0.24387304889219363,
+        "val_bss": NaN
+      },
+      {
+        "epoch": 4,
+        "train_loss": 0.9456813335418701,
+        "val_loss": 0.6645529270172119,
+        "val_brier": 0.2357113515619753,
+        "val_bss": NaN
+      },
+      {
+        "epoch": 5,
+        "train_loss": 0.9171680212020874,
+        "val_loss": 0.6496665477752686,
+        "val_brier": 0.22827784089506742,
+        "val_bss": NaN
+      }
+    ],
+    "checkpoint": "/content/drive/MyDrive/hurricane-ri-forecast/outputs/checkpoints/tabular_al062018.pt",
+    "best_val": 0.6496665477752686
+  },
+  "imagery": {
+    "history": [
+      {
+        "epoch": 1,
+        "train_loss": 1.0240786373615265,
+        "val_loss": 0.7328133583068848,
+        "val_brier": 0.26982297462105187,
+        "val_bss": NaN
+      },
+      {
+        "epoch": 2,
+        "train_loss": 1.0032781660556793,
+        "val_loss": 0.6985962986946106,
+        "val_brier": 0.2527245157341609,
+        "val_bss": NaN
+      },
+      {
+        "epoch": 3,
+        "train_loss": 1.004616916179657,
+        "val_loss": 0.6682533025741577,
+        "val_brier": 0.23755568118254855,
+        "val_bss": NaN
+      },
+      {
+        "epoch": 4,
+        "train_loss": 0.9852049648761749,
+        "val_loss": 0.6327522993087769,
+        "val_brier": 0.21984103970640367,
+        "val_bss": NaN
+      },
+      {
+        "epoch": 5,
+        "train_loss": 0.9493204057216644,
+        "val_loss": 0.5651370286941528,
+        "val_brier": 0.1863805315405227,
+        "val_bss": NaN
+      }
+    ],
+    "checkpoint": "/content/drive/MyDrive/hurricane-ri-forecast/outputs/checkpoints/imagery_al062018.pt",
+    "best_val": 0.5651370286941528
+  },
+  "fusion": {
+    "history": [
+      {
+        "epoch": 1,
+        "train_loss": 1.0154222548007965,
+        "val_loss": 0.692284107208252,
+        "val_brier": 0.24957044266511996,
+        "val_bss": NaN
+      },
+      {
+        "epoch": 2,
+        "train_loss": 0.996595948934555,
+        "val_loss": 0.6746060848236084,
+        "val_brier": 0.24074310176725588,
+        "val_bss": NaN
+      },
+      {
+        "epoch": 3,
+        "train_loss": 3.3617551922798157,
+        "val_loss": 0.6608076095581055,
+        "val_brier": 0.23385814725779142,
+        "val_bss": NaN
+      },
+      {
+        "epoch": 4,
+        "train_loss": 0.9753197133541107,
+        "val_loss": 0.6654287576675415,
+        "val_brier": 0.23616393053604967,
+        "val_bss": NaN
+      },
+      {
+        "epoch": 5,
+        "train_loss": 0.9329689741134644,
+        "val_loss": 0.6612194180488586,
+        "val_brier": 0.23406748993782323,
+        "val_bss": NaN
+      }
+    ],
+    "checkpoint": "/content/drive/MyDrive/hurricane-ri-forecast/outputs/checkpoints/fusion_al062018.pt",
+    "best_val": 0.6608076095581055
+  }
+}
