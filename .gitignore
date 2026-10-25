@@ -10,14 +10,19 @@ env/
 .DS_Store
 Thumbs.db
 .claude/
+.cursor/
+.idea/
+.vscode/
+*.log
 
-# large data (not for git)
-data/raw/tcprimed/
-data/interim/
-data/processed/
+# all local data (TC PRIMED raw/interim/processed) — keep out of git
+data/
+!data/.gitkeep
+
+# NetCDF / array dumps anywhere
 *.nc
 *.npy
-*.parquet
+*.npz
 *.h5
 *.hdf5
 
@@ -27,10 +32,10 @@ outputs/checkpoints/
 *.pth
 *.ckpt
 
-# keep small result artifacts trackable
-# outputs/metrics/*.json and outputs/figures/*.png may be committed
+# large prediction dumps (metrics JSON / small figures may be committed)
+outputs/metrics/*.csv
+outputs/metrics/*.log
 
-# local tooling
-.idea/
-.vscode/
-*.log
+# OS / editor
+*.swp
+*~
