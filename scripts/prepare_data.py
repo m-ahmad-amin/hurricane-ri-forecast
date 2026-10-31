@@ -12,6 +12,15 @@ from src.data.prepare import assign_split, build_samples, save_processed
 from src.utils import ensure_dirs, load_config, project_paths, save_json
 
 
+def _parse_shard(value: str | None) -> tuple[int, int] | None:
+    if value is None:
+        return None
+    if "/" not in value:
+        raise argparse.ArgumentTypeError("shard must look like 0/2")
+    left, right = value.split("/", 1)
+    return int(left), int(right)
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="Build RI samples from TC PRIMED")
     parser.add_argument("--config", default="configs/al062018.yaml")
@@ -20,6 +29,16 @@ def main() -> None:
         "--raw-root",
         default=None,
         help="Optional local TC PRIMED root (use on Colab to avoid Drive read drops)",
+    )
+    parser.add_argument(
+        "--shard",
+        default=None,
+        help="Optional worker shard, e.g. 0/2 or 1/2 for two parallel Colab runs",
+    )
+    parser.add_argument(
+        "--assemble-only",
+        action="store_true",
+        help="Only build final processed dataset from checkpoints (no new storm parsing)",
     )
     args = parser.parse_args()
 
@@ -31,6 +50,7 @@ def main() -> None:
     subset = cfg.get("subset") or {}
     use_subset = bool(subset)
     raw_root = Path(args.raw_root) if args.raw_root else paths["raw_tcprimed"]
+    shard = _parse_shard(args.shard)
 
     if use_subset:
         seasons = subset.get("seasons", cfg["train_seasons"])
@@ -44,7 +64,7 @@ def main() -> None:
         instruments = cfg.get("instruments")
 
     checkpoint_dir = paths["interim"] / f"prepare_{tag}"
-    df, images = build_samples(
+    df, images, complete = build_samples(
         raw_root=raw_root,
         image_size=cfg["image_size"],
         ri_threshold_kt=cfg["ri_threshold_kt"],
@@ -55,7 +75,15 @@ def main() -> None:
         storm_ids=storm_ids,
         instruments=instruments,
         checkpoint_dir=checkpoint_dir,
+        shard=shard,
+        assemble_only=args.assemble_only,
     )
+
+    if not complete:
+        print("exiting without writing final processed dataset yet")
+        return
+
+    assert df is not None and images is not None
 
     df, images = assign_split(
         df,
