@@ -66,18 +66,30 @@ def _storm_key(storm_dir: Path, raw_root: Path) -> str:
         return storm_dir.as_posix()
 
 
+def _key_from_safe(safe: str) -> str:
+    return safe.replace("__", "/")
+
+
 def _load_done(checkpoint_dir: Path) -> set[str]:
+    done: set[str] = set()
     path = checkpoint_dir / "done.json"
-    if not path.exists():
-        return set()
-    with open(path, "r", encoding="utf-8") as f:
-        return set(json.load(f))
+    if path.exists():
+        with open(path, "r", encoding="utf-8") as f:
+            done.update(json.load(f))
+    shard_dir = checkpoint_dir / "storms"
+    if shard_dir.exists():
+        for parquet_path in shard_dir.glob("*.parquet"):
+            npy_path = parquet_path.with_suffix(".npy")
+            if npy_path.exists():
+                done.add(_key_from_safe(parquet_path.stem))
+    return done
 
 
 def _save_done(checkpoint_dir: Path, done: set[str]) -> None:
+    merged = _load_done(checkpoint_dir) | set(done)
     path = checkpoint_dir / "done.json"
     with open(path, "w", encoding="utf-8") as f:
-        json.dump(sorted(done), f, indent=2)
+        json.dump(sorted(merged), f, indent=2)
 
 
 def _save_storm_shard(
@@ -136,13 +148,30 @@ def build_samples(
     storm_ids: Optional[list[str]] = None,
     instruments: Optional[list[str]] = None,
     checkpoint_dir: Optional[Path] = None,
-) -> tuple[pd.DataFrame, np.ndarray]:
+    shard: Optional[tuple[int, int]] = None,
+    assemble_only: bool = False,
+) -> tuple[Optional[pd.DataFrame], Optional[np.ndarray], bool]:
+    """
+    Returns (df, images, complete).
+    complete=False means more storms are still pending (e.g. another shard worker).
+    """
     env_files = find_env_files(raw_root)
     storm_dirs = [
         d
         for d in _storm_dirs_from_env(env_files)
         if _filter_storm_dir(d, seasons, basins, storm_ids)
     ]
+    all_keys = [_storm_key(d, raw_root) for d in storm_dirs]
+
+    if shard is not None:
+        shard_id, num_shards = shard
+        if num_shards < 1 or shard_id < 0 or shard_id >= num_shards:
+            raise ValueError(f"invalid shard {shard_id}/{num_shards}")
+        indexed = [(i, d) for i, d in enumerate(storm_dirs) if i % num_shards == shard_id]
+        assigned_dirs = [d for _, d in indexed]
+        print(f"shard {shard_id}/{num_shards}: {len(assigned_dirs)}/{len(storm_dirs)} storms assigned")
+    else:
+        assigned_dirs = storm_dirs
 
     done: set[str] = set()
     if checkpoint_dir is not None:
@@ -151,20 +180,38 @@ def build_samples(
         done = _load_done(checkpoint_dir)
         print(f"resume: {len(done)}/{len(storm_dirs)} storms already done")
 
+    if assemble_only:
+        done = _load_done(checkpoint_dir) if checkpoint_dir is not None else set()
+        complete = checkpoint_dir is not None and set(all_keys).issubset(done)
+        if not complete:
+            missing = len(all_keys) - len(done & set(all_keys))
+            print(f"assemble-only: still missing ~{missing} storms")
+            return None, None, False
+        df, images = _load_all_shards(checkpoint_dir, done)
+        return df, images, True
+
     acc_rows: list[dict[str, Any]] = []
     acc_images: list[np.ndarray] = []
 
-    for storm_dir in tqdm(storm_dirs, desc="storms"):
+    storm_bar = tqdm(
+        assigned_dirs,
+        desc="storms",
+        mininterval=5.0,
+        maxinterval=60.0,
+    )
+    for storm_dir in storm_bar:
         key = _storm_key(storm_dir, raw_root)
-        if checkpoint_dir is not None and key in done:
-            continue
+        if checkpoint_dir is not None:
+            done = _load_done(checkpoint_dir)
+            if key in done:
+                continue
 
         env_path = next(storm_dir.glob("*_env_*.nc"))
         env_index = load_env_index(env_path)
         overpasses = find_overpass_files(storm_dir, instruments=instruments)
         rows: list[dict[str, Any]] = []
         images: list[np.ndarray] = []
-        for overpass in tqdm(overpasses, desc=storm_dir.name, leave=False):
+        for overpass in overpasses:
             sample = read_overpass_sample(
                 overpass,
                 env_index=env_index,
@@ -183,14 +230,26 @@ def build_samples(
 
         if checkpoint_dir is not None:
             _save_storm_shard(checkpoint_dir, key, rows, images)
+            _save_done(checkpoint_dir, {key})
             done.add(key)
-            _save_done(checkpoint_dir, done)
         else:
             acc_rows.extend(rows)
             acc_images.extend(images)
 
+        storm_bar.set_postfix(storm=key, samples=len(rows), refresh=False)
+
     if checkpoint_dir is not None:
-        return _load_all_shards(checkpoint_dir, done)
+        done = _load_done(checkpoint_dir)
+        complete = set(all_keys).issubset(done)
+        if not complete:
+            print(
+                f"checkpoint incomplete: {len(done)}/{len(all_keys)} storms. "
+                "Other shard workers may still be running. "
+                "When all are done, run with --assemble-only."
+            )
+            return None, None, False
+        df, images = _load_all_shards(checkpoint_dir, done)
+        return df, images, True
 
     if not acc_rows:
         raise RuntimeError(
@@ -201,7 +260,7 @@ def build_samples(
     for col in TABULAR_FEATURES:
         if col not in df.columns:
             df[col] = np.nan
-    return df, np.stack(acc_images).astype(np.float32)
+    return df, np.stack(acc_images).astype(np.float32), True
 
 
 def assign_split(
