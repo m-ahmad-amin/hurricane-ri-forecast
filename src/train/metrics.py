@@ -81,6 +81,23 @@ def reliability_curve(
     }
 
 
+def ranking_auc(y_true: np.ndarray, y_prob: np.ndarray) -> dict[str, float]:
+    """ROC-AUC and average precision (PR-AUC). Returns nan if undefined."""
+    y_true = np.asarray(y_true).astype(int)
+    y_prob = np.asarray(y_prob, dtype=float)
+    out = {"roc_auc": float("nan"), "pr_auc": float("nan")}
+    if len(np.unique(y_true)) < 2:
+        return out
+    try:
+        from sklearn.metrics import average_precision_score, roc_auc_score
+
+        out["roc_auc"] = float(roc_auc_score(y_true, y_prob))
+        out["pr_auc"] = float(average_precision_score(y_true, y_prob))
+    except Exception:
+        pass
+    return out
+
+
 def summarize_predictions(
     y_true: np.ndarray,
     y_prob: np.ndarray,
@@ -94,6 +111,7 @@ def summarize_predictions(
         "brier_skill_vs_climatology": brier_skill_score(y_true, y_prob),
         "threshold": threshold,
         **counts,
+        **ranking_auc(y_true, y_prob),
         "reliability": reliability_curve(y_true, y_prob),
     }
 
@@ -103,15 +121,25 @@ def bootstrap_bss(
     y_prob: np.ndarray,
     n_boot: int = 500,
     seed: int = 42,
+    clusters: np.ndarray | None = None,
 ) -> dict[str, float]:
+    """Bootstrap BSS. If clusters (e.g. storm_id) is provided, resample whole clusters."""
     rng = np.random.default_rng(seed)
     y_true = np.asarray(y_true, dtype=float)
     y_prob = np.asarray(y_prob, dtype=float)
     values = []
-    n = len(y_true)
-    for _ in range(n_boot):
-        idx = rng.integers(0, n, size=n)
-        values.append(brier_skill_score(y_true[idx], y_prob[idx]))
+    if clusters is None:
+        n = len(y_true)
+        for _ in range(n_boot):
+            idx = rng.integers(0, n, size=n)
+            values.append(brier_skill_score(y_true[idx], y_prob[idx]))
+    else:
+        clusters = np.asarray(clusters)
+        uniq = np.unique(clusters)
+        for _ in range(n_boot):
+            draw = rng.choice(uniq, size=len(uniq), replace=True)
+            idx = np.concatenate([np.flatnonzero(clusters == c) for c in draw])
+            values.append(brier_skill_score(y_true[idx], y_prob[idx]))
     values = np.asarray(values, dtype=float)
     values = values[np.isfinite(values)]
     if values.size == 0:
@@ -120,4 +148,43 @@ def bootstrap_bss(
         "bss_mean": float(np.mean(values)),
         "bss_lo": float(np.quantile(values, 0.025)),
         "bss_hi": float(np.quantile(values, 0.975)),
+    }
+
+
+def bootstrap_delta_bss(
+    y_true: np.ndarray,
+    prob_a: np.ndarray,
+    prob_b: np.ndarray,
+    n_boot: int = 500,
+    seed: int = 42,
+    clusters: np.ndarray | None = None,
+) -> dict[str, float]:
+    """Paired BSS(A)-BSS(B). Prefer storm-clustered resampling when clusters are given."""
+    rng = np.random.default_rng(seed)
+    y_true = np.asarray(y_true, dtype=float)
+    prob_a = np.asarray(prob_a, dtype=float)
+    prob_b = np.asarray(prob_b, dtype=float)
+    deltas = []
+    if clusters is None:
+        n = len(y_true)
+        for _ in range(n_boot):
+            idx = rng.integers(0, n, size=n)
+            yt = y_true[idx]
+            deltas.append(brier_skill_score(yt, prob_a[idx]) - brier_skill_score(yt, prob_b[idx]))
+    else:
+        clusters = np.asarray(clusters)
+        uniq = np.unique(clusters)
+        for _ in range(n_boot):
+            draw = rng.choice(uniq, size=len(uniq), replace=True)
+            idx = np.concatenate([np.flatnonzero(clusters == c) for c in draw])
+            yt = y_true[idx]
+            deltas.append(brier_skill_score(yt, prob_a[idx]) - brier_skill_score(yt, prob_b[idx]))
+    values = np.asarray(deltas, dtype=float)
+    values = values[np.isfinite(values)]
+    if values.size == 0:
+        return {"delta_mean": float("nan"), "delta_lo": float("nan"), "delta_hi": float("nan")}
+    return {
+        "delta_mean": float(np.mean(values)),
+        "delta_lo": float(np.quantile(values, 0.025)),
+        "delta_hi": float(np.quantile(values, 0.975)),
     }
