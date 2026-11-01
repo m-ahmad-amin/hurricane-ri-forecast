@@ -1,6 +1,8 @@
 # hurricane-ri-forecast
 
-hurricane-ri-forecast is a research project on **probabilistic 24-hour tropical cyclone rapid intensification (RI)** using public NOAA **TC PRIMED** (storm-centered IR plus environmental fields). We train and compare tabular MLP, IR CNN, gated fusion, and GBM controls under a season holdout, then study how evaluation choices (class weighting, calibration, storm-clustered uncertainty) change the conclusions. The repo also includes **PRIMED RI Explorer**, a small FastAPI + React demo that turns basin, wind, and location into a plain-language RI chance from archive analogs. **[▶ Live Demo](https://primed-ri-explorer.netlify.app)**
+hurricane-ri-forecast is a research project on **probabilistic 24-hour tropical cyclone rapid intensification (RI)** using public NOAA **TC PRIMED** (storm-centered IR plus environmental fields). We train and compare tabular MLP, IR CNN, gated fusion, and GBM controls under a season holdout, then study how evaluation choices (class weighting, calibration, storm-clustered uncertainty) change the conclusions. The repo also includes **PRIMED RI Explorer**, a small FastAPI + React demo that turns basin, wind, and location into a plain-language RI chance from archive analogs.
+
+**[▶ Demo](https://primed-ri-explorer.netlify.app)**
 
 **RI definition:** maximum sustained wind increases by **≥ 30 kt** in **24 hours**.
 
