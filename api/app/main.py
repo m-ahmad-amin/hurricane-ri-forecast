@@ -19,13 +19,25 @@ app = FastAPI(
     ),
 )
 
-origins = [o.strip() for o in settings.cors_origins.split(",") if o.strip()] or ["*"]
-# Browsers reject Access-Control-Allow-Origin: * when credentials are enabled.
-allow_credentials = origins != ["*"]
+def _parse_cors_origins(raw: str) -> list[str]:
+    """Normalize Render/Netlify env values (quotes, trailing slashes, commas)."""
+    out: list[str] = []
+    for part in (raw or "*").split(","):
+        o = part.strip().strip("\"'")
+        if not o:
+            continue
+        if o != "*":
+            o = o.rstrip("/")
+        out.append(o)
+    return out or ["*"]
+
+
+origins = _parse_cors_origins(settings.cors_origins)
+# No cookies/auth on this API. credentials=False lets both "*" and explicit origins work.
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
-    allow_credentials=allow_credentials,
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
