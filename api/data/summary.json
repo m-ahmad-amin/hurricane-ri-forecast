@@ -1,0 +1,30 @@
+{
+  "n_cases": 8113,
+  "n_storms": 75,
+  "n_ri": 393,
+  "ri_rate": 0.048441,
+  "basins": [
+    "AL",
+    "EP"
+  ],
+  "seasons": [
+    2023,
+    2024
+  ],
+  "models": [
+    "tabular",
+    "imagery",
+    "fusion"
+  ],
+  "protocol": "unweighted neural, seed-averaged (42/43/44), isotonic primary display",
+  "github": "https://github.com/m-ahmad-amin/hurricane-ri-forecast",
+  "disclaimer": "Research / educational tool on public TC PRIMED. Not official NHC/NWS guidance. Not a SHIPS-RII replacement.",
+  "skill_snapshot": {
+    "mlp_iso_bss": 0.2,
+    "fusion_iso_bss": 0.22,
+    "imagery_iso_bss": 0.03,
+    "mlp_auc": 0.905,
+    "fusion_auc": 0.904,
+    "imagery_auc": 0.778
+  }
+}

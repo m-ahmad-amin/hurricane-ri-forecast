@@ -15,9 +15,9 @@ Thumbs.db
 .vscode/
 *.log
 
-# all local data (TC PRIMED raw/interim/processed) — keep out of git
-data/
-!data/.gitkeep
+# research TC PRIMED data at repo root only (keep api/data for the product API)
+/data/
+!/data/.gitkeep
 
 # NetCDF / array dumps anywhere
 *.nc
