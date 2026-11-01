@@ -10,7 +10,7 @@ Probabilistic **24-hour tropical cyclone rapid intensification (RI)** on public 
 
 ## Overview
 
-Ablation of tabular MLP, IR CNN, gated fusion, and gradient-boosting (GBM) controls for probabilistic RI on TC PRIMED (AL+EP; train/validation 2017–2022; test 2023–2024). The study focuses on how **evaluation choices**—class weighting, calibrator matching, storm-clustered uncertainty, and classical baseline protocol—change IR-versus-tabular conclusions. It is complementary to SHIPS/IR ablations such as Lagerquist et al. (2025), not an operational SHIPS-RII comparison.
+Ablation of tabular MLP, IR CNN, gated fusion, and gradient-boosting (GBM) controls for probabilistic RI on TC PRIMED (AL+EP; train/validation 2017-2022; test 2023-2024). The study focuses on how **evaluation choices** (class weighting, calibrator matching, storm-clustered uncertainty, and classical baseline protocol) change IR-versus-tabular conclusions. It is complementary to SHIPS/IR ablations such as Lagerquist et al. (2025), not an operational SHIPS-RII comparison.
 
 ## Features
 
@@ -19,6 +19,20 @@ Ablation of tabular MLP, IR CNN, gated fusion, and gradient-boosting (GBM) contr
 - Season holdout, BSS / ROC-AUC, storm-clustered intervals, reliability
 - Calibration: isotonic (primary for reported claims), temperature / Platt diagnostics
 - Manuscript sources in `paper/arXiv/` and `paper/OLAR/`
+- **Product app:** PRIMED RI Explorer (`web/` + `api/`) for interactive 24-hour RI chance estimates
+
+## Product (PRIMED RI Explorer)
+
+Full-stack demo app for the research models:
+
+| Piece | Stack | Typical host |
+|-------|--------|--------------|
+| Frontend | React + Vite (`web/`) | Netlify |
+| Backend | FastAPI (`api/`) | Render |
+
+- Enter basin, wind, and location to get a single plain-language RI chance
+- Estimates use archive analogs from held-out TC PRIMED predictions (experimental; not official guidance)
+- Local setup is below
 
 ## Dataset
 
@@ -26,12 +40,12 @@ Source: [TC PRIMED](https://rammb-data.cira.colostate.edu/tcprimed/) (NOAA / CIR
 
 | Split | Seasons | Basins |
 |-------|---------|--------|
-| Train / validation | 2017–2022 | AL, EP |
-| Test | 2023–2024 | AL, EP |
+| Train / validation | 2017-2022 | AL, EP |
+| Test | 2023-2024 | AL, EP |
 
 Prepared corpus: **33,878** samples (**1,409** RI). Test set: **8,113** samples (**75** storms, **393** RI events, rate **4.8%**).
 
-## Main results (held-out 2023–2024)
+## Main results (held-out 2023-2024)
 
 Seed-averaged isotonic BSS with storm-clustered 95% intervals unless noted. Primary neural protocol is **unweighted** BCE; primary GBM is the **validation-selected** sklearn-default-like setting.
 
@@ -116,6 +130,8 @@ Seed-averaged isotonic BSS with storm-clustered 95% intervals unless noted. Prim
 
 ```text
 hurricane-ri-forecast/
+├── api/                 # FastAPI product backend
+├── web/                 # React + Vite product frontend
 ├── configs/
 ├── paper/
 │   ├── arXiv/
@@ -126,23 +142,30 @@ hurricane-ri-forecast/
 ├── scripts/
 ├── src/
 ├── assets/
-└── requirements.txt
+└── requirements.txt     # research / training Python deps
 ```
 
 ## Setup
 
+Clone once, then follow either path (or both):
+
 ```bash
-git clone <your-repo-url> hurricane-ri-forecast
+git clone https://github.com/m-ahmad-amin/hurricane-ri-forecast.git
 cd hurricane-ri-forecast
+```
+
+### 1. Research / training
+
+Python 3.10+ recommended. A GPU helps for imagery and fusion training.
+
+```bash
 python -m venv .venv
 # Windows: .venv\Scripts\activate
 # Linux/macOS: source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-A GPU is recommended for imagery and fusion training.
-
-## Usage
+Then run the pipeline:
 
 ```bash
 python scripts/download_data.py --config configs/default.yaml --season 2018 --basin AL
@@ -154,6 +177,45 @@ python scripts/compare_models.py --config configs/default.yaml
 
 Multi-seed and regime utilities live under `scripts/`. Single-storm config: `configs/al062018.yaml`.
 
+Refresh API archive exports after new metrics (optional, for the product backend):
+
+```bash
+python scripts/export_product_data.py
+```
+
+### 2. Product app (local)
+
+Needs **two terminals**. Node.js 20+ for the frontend; Python for the API.
+
+**Terminal A: API**
+
+```bash
+cd api
+python -m venv .venv
+# Windows: .venv\Scripts\activate
+# Linux/macOS: source .venv/bin/activate
+pip install -r requirements.txt
+uvicorn app.main:app --reload --host 127.0.0.1 --port 8000
+```
+
+Check: [http://127.0.0.1:8000/health](http://127.0.0.1:8000/health)
+
+**Terminal B: web**
+
+```bash
+cd web
+npm install
+# Windows PowerShell:
+Set-Content -Path .env -Value "VITE_API_BASE=http://127.0.0.1:8000"
+# Linux/macOS:
+# echo "VITE_API_BASE=http://127.0.0.1:8000" > .env
+npm run dev
+```
+
+Open the Vite URL (usually [http://127.0.0.1:5173](http://127.0.0.1:5173)).
+
 ## Citation
+
+Repository: https://github.com/m-ahmad-amin/hurricane-ri-forecast
 
 Cite TC PRIMED and follow NOAA open-data attribution when using this project or the data. Manuscript citation will be added upon preprint / journal publication.
