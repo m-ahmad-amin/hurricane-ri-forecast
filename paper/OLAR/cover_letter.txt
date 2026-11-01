@@ -1,0 +1,18 @@
+Dear Editor,
+
+Please consider the enclosed manuscript, “Evaluation choices change infrared-versus-tabular rapid-intensification conclusions on TC PRIMED,” for publication in Ocean–Land–Atmosphere Research as a Research Article.
+
+The manuscript reports a public TC PRIMED ablation of tabular, infrared, fusion, and gradient-boosting pathways for 24 h tropical-cyclone rapid intensification. The contribution is evaluation design: class weighting, calibrator matching, storm-clustered uncertainty, and classical-control protocol can change IR-versus-tabular conclusions. The work is complementary to recent SHIPS/IR analyses and does not claim operational superiority over SHIPS-RII.
+
+All data are public (NOAA/CIRA TC PRIMED). Code and metrics are available at:
+https://github.com/m-ahmad-amin/hurricane-ri-forecast
+
+Large language models were used as writing aids for drafting and revision. The author verified all scientific claims, numerical results, and citations.
+
+Thank you for your consideration.
+
+Sincerely,
+Muhammad Ahmad Amin
+School of Electrical Engineering and Computer Science (SEECS)
+National University of Sciences and Technology (NUST), Islamabad, Pakistan
+mamin.bscs24seecs@seecs.edu.pk

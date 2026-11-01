@@ -20,8 +20,9 @@
 
 \author{
 Muhammad Ahmad Amin \\
+School of Electrical Engineering and Computer Science (SEECS), \\
 National University of Sciences and Technology (NUST), Islamabad, Pakistan \\
-mamin.bscs24seecs@seecs.edu.pk
+\href{mailto:mamin.bscs24seecs@seecs.edu.pk}{mamin.bscs24seecs@seecs.edu.pk}
 }
 
 \date{}
@@ -309,7 +310,7 @@ The study has several limitations. First, it does not include matched SHIPS-RII 
 On public {TC PRIMED}, evaluation design choices change conclusions about IR-versus-tabular 24\,h RI skill. The validation-selected default-like GBM (BSS $+0.11$) is the primary classical baseline; a post-hoc regularized configuration that reaches $+0.21$ is optimistic relative to the locked protocol. Class weighting produces a pronounced raw MLP deficit relative to weighted imagery and fusion; isotonic recalibration and unweighted training remove most of the BSS gap, but weighting still shifts imagery discrimination. Under shared trainer defaults, fusion does not significantly exceed the unweighted MLP, and imagery does not significantly exceed an IR-scalars-only MLP despite much higher capacity. Against validation-selected default GBMs, seed-averaged neural models lead in point BSS (MLP/fusion $\Delta$ approximately $+0.09$ to $+0.11$), with clustered intervals that mostly exclude zero but remain wide; single-seed contrasts are weaker, and contrasts against the post-hoc regularized GBM are inconclusive. These findings motivate matching loss and calibrators across pathways, locking classical hyperparameters on validation, and clustering uncertainty by storm before attributing skill gains to imagery or fusion.
 
 \section*{Data availability statement}
-{TC PRIMED} data are available from NOAA/CIRA \citep{razin2023,tcprimed}. Code and metrics accompanying this study are available in the \texttt{hurricane-ri-forecast} repository.
+{TC PRIMED} data are available from NOAA/CIRA \citep{razin2023,tcprimed}. Code, trained-model metrics, and scripts accompanying this study are available at \url{https://github.com/m-ahmad-amin/hurricane-ri-forecast}.
 
 \section*{Acknowledgments}
 The author thanks NOAA/CIRA for public access to {TC PRIMED}.
