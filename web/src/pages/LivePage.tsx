@@ -86,7 +86,7 @@ export default function LivePage() {
                   <span>
                     <strong>{s.name}</strong>
                     <div className="muted" style={{ fontSize: "0.8rem" }}>
-                      {s.basin || "—"} · {s.intensity_kt != null ? `${s.intensity_kt} kt` : "n/a"}
+                      {s.basin || "-"} · {s.intensity_kt != null ? `${s.intensity_kt} kt` : "n/a"}
                     </div>
                   </span>
                   <span className="btn btn-navy" style={{ padding: "0.45rem 0.85rem" }}>
